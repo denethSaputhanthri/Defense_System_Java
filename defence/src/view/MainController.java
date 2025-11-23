@@ -4,8 +4,6 @@ import controller.ControlRoom;
 import obs.Obsever;
 
 public class MainController extends javax.swing.JFrame implements Obsever{
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainController.class.getName());
 
     private ControlRoom controlroom;    
     
@@ -144,6 +142,7 @@ public class MainController extends javax.swing.JFrame implements Obsever{
         sldMainController.setMinorTickSpacing(10);
         sldMainController.setPaintLabels(true);
         sldMainController.setPaintTicks(true);
+        sldMainController.setValue(0);
         sldMainController.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldMainControllerStateChanged(evt);
@@ -238,6 +237,4 @@ public class MainController extends javax.swing.JFrame implements Obsever{
     public void sendPrivate(String name, String msg) {
         
     }
-
-   
 }

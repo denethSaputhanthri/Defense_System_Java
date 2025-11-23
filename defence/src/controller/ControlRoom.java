@@ -11,7 +11,6 @@ public class ControlRoom {
         nextIndex++;
     }
     
-    
     public void setArea(boolean areaClear) {
         for (int i=0;i<nextIndex;i++) {
             Obsever obsever=obseverArray[i];

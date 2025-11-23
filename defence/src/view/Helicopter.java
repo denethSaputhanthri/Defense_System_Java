@@ -1,20 +1,23 @@
 package view;
+
 import controller.ControlRoom;
 import obs.Obsever;
 
-public class Helicopter extends javax.swing.JFrame implements Obsever{
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Helicopter.class.getName());
+public class Helicopter extends javax.swing.JFrame implements Obsever {
+
     private ControlRoom contralRoom;
-    
+
     public Helicopter(ControlRoom controlRoom) {
         initComponents();
-        this.contralRoom=controlRoom;
+        this.contralRoom = controlRoom;
         setTitle("HELICOPTER");
         setVisible(true);
+        btnShootHelicopter.setEnabled(false);
+        btnMissilleHelicopter.setEnabled(false);
+        btnLaserHelicopter.setEnabled(false);
+
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -65,6 +68,7 @@ public class Helicopter extends javax.swing.JFrame implements Obsever{
         getContentPane().add(btnMissilleHelicopter, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 87, 138, 35));
 
         txtAreaHelicopter.setColumns(20);
+        txtAreaHelicopter.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         txtAreaHelicopter.setRows(5);
         jScrollPane1.setViewportView(txtAreaHelicopter);
 
@@ -117,9 +121,8 @@ public class Helicopter extends javax.swing.JFrame implements Obsever{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSendHelicopterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendHelicopterActionPerformed
-        String sendMsg="Helicopter  : "+jTextField1.getText();
+        String sendMsg = "Helicopter  : " + jTextField1.getText();
         MainController.setDefenceMsg(sendMsg);
-        
     }//GEN-LAST:event_btnSendHelicopterActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -134,7 +137,7 @@ public class Helicopter extends javax.swing.JFrame implements Obsever{
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMissilleHelicopterActionPerformed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLaserHelicopter;
     private javax.swing.JButton btnMissilleHelicopter;
@@ -155,54 +158,54 @@ public class Helicopter extends javax.swing.JFrame implements Obsever{
 
     @Override
     public void areaClear(boolean AreaClear) {
-       if(AreaClear){
-           lblAreaHelicopter.setText("Area Clear...");
-       }else{
-           lblAreaHelicopter.setText("Area Is Not Clear...");
-       }
+        if (AreaClear) {
+            lblAreaHelicopter.setText("Area Clear...");
+        } else {
+            lblAreaHelicopter.setText("Area Is Not Clear...");
+        }
     }
 
     @Override
     public void getMsgMain(String Msg) {
-       txtAreaHelicopter.append("Main Controller  :"+Msg+"\n");
+        txtAreaHelicopter.append("Main Controller  :" + Msg + "\n");
     }
 
     @Override
     public void setPosition(int position) {
-        if(jCheckBox1.isSelected()){
-            if(position>60){
+        if (jCheckBox1.isSelected()) {
+            if (position > 60) {
                 btnShootHelicopter.setEnabled(true);
                 btnMissilleHelicopter.setEnabled(true);
                 btnLaserHelicopter.setEnabled(true);
-            }else if(position>40){
+            } else if (position > 40) {
                 btnShootHelicopter.setEnabled(true);
                 btnMissilleHelicopter.setEnabled(true);
                 btnLaserHelicopter.setEnabled(false);
-            }else if(position>20){
+            } else if (position > 20) {
                 btnShootHelicopter.setEnabled(true);
                 btnMissilleHelicopter.setEnabled(false);
                 btnLaserHelicopter.setEnabled(false);
             }
-            if(position<20){
+            if (position < 20) {
                 btnShootHelicopter.setEnabled(false);
                 btnMissilleHelicopter.setEnabled(false);
                 btnLaserHelicopter.setEnabled(false);
-            }else if(position<40){
+            } else if (position < 40) {
                 btnShootHelicopter.setEnabled(true);
                 btnMissilleHelicopter.setEnabled(false);
                 btnLaserHelicopter.setEnabled(false);
-            }else if(position<60){
-               btnShootHelicopter.setEnabled(true);
+            } else if (position < 60) {
+                btnShootHelicopter.setEnabled(true);
                 btnMissilleHelicopter.setEnabled(true);
-                btnLaserHelicopter.setEnabled(true);
+                btnLaserHelicopter.setEnabled(false);
             }
         }
-   }
+    }
 
     @Override
     public void sendPrivate(String name, String msg) {
-        if("Helicopter".equals(name)){
-            txtAreaHelicopter.append("Main Controller  :"+msg+"\n");
+        if ("Helicopter".equals(name)) {
+            txtAreaHelicopter.append("Main Controller  :" + msg + "\n");
         }
     }
 }

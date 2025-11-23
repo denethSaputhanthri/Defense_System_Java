@@ -1,16 +1,21 @@
 package view;
+
 import controller.ControlRoom;
 import obs.Obsever;
-public class Submarine extends javax.swing.JFrame implements Obsever{
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Submarine.class.getName());
+
+public class Submarine extends javax.swing.JFrame implements Obsever {
+
     private ControlRoom controlroom;
-    
-        public Submarine(ControlRoom controlRoom) {
+
+    public Submarine(ControlRoom controlRoom) {
         initComponents();
-        this.controlroom=controlRoom;
+        this.controlroom = controlRoom;
         setTitle("SUBMARINE");
         setVisible(true);
+        btnShootSubmarine.setEnabled(false);
+        btnMassileSubmarine.setEnabled(false);
+        btnTomahawkSubmarine.setEnabled(false);
+        btnTridentSubmarine.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -72,12 +77,13 @@ public class Submarine extends javax.swing.JFrame implements Obsever{
         getContentPane().add(btnMassileSubmarine, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 87, 138, 35));
 
         txtAreaSubmarine.setColumns(20);
+        txtAreaSubmarine.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         txtAreaSubmarine.setRows(5);
         jScrollPane1.setViewportView(txtAreaSubmarine);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 206, 539, 244));
 
-        btnSearchSubmarine.setText("Search");
+        btnSearchSubmarine.setText("Send");
         btnSearchSubmarine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchSubmarineActionPerformed(evt);
@@ -150,7 +156,7 @@ public class Submarine extends javax.swing.JFrame implements Obsever{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchSubmarineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchSubmarineActionPerformed
-        String sendMsg="Submarine  : "+txtMessageSendSubmarine.getText();
+        String sendMsg = "Submarine  : " + txtMessageSendSubmarine.getText();
         MainController.setDefenceMsg(sendMsg);
     }//GEN-LAST:event_btnSearchSubmarineActionPerformed
 
@@ -200,73 +206,71 @@ public class Submarine extends javax.swing.JFrame implements Obsever{
     public void areaClear(boolean AreaClear) {
         if (AreaClear) {
             lblAreaSubmarine.setText("Area Clear...");
-        }else{
+        } else {
             lblAreaSubmarine.setText("Area Is Not Clear...");
         }
     }
 
     @Override
     public void getMsgMain(String Msg) {
-       txtAreaSubmarine.append("Main Controller  :"+Msg+"\n");
+        txtAreaSubmarine.append("Main Controller  :" + Msg + "\n");
     }
 
     @Override
     public void setPosition(int position) {
-        if(checkBoxPositionSub.isSelected()){
-            if(position>80){
+        if (checkBoxPositionSub.isSelected()) {
+            if (position > 80) {
                 btnShootSubmarine.setEnabled(true);
                 btnMassileSubmarine.setEnabled(true);
                 btnTomahawkSubmarine.setEnabled(true);
                 btnTridentSubmarine.setEnabled(true);
-            }else if(position>60){
+            } else if (position > 60) {
                 btnShootSubmarine.setEnabled(true);
                 btnMassileSubmarine.setEnabled(true);
                 btnTomahawkSubmarine.setEnabled(true);
                 btnTridentSubmarine.setEnabled(false);
-            }else if(position>40){
+            } else if (position > 40) {
                 btnShootSubmarine.setEnabled(true);
                 btnMassileSubmarine.setEnabled(true);
                 btnTomahawkSubmarine.setEnabled(false);
                 btnTridentSubmarine.setEnabled(false);
-            }else if(position>20){
+            } else if (position > 20) {
                 btnShootSubmarine.setEnabled(true);
                 btnMassileSubmarine.setEnabled(false);
                 btnTomahawkSubmarine.setEnabled(false);
                 btnTridentSubmarine.setEnabled(false);
             }
-            
-            if(position<20){
+
+            if (position < 20) {
                 btnShootSubmarine.setEnabled(false);
                 btnMassileSubmarine.setEnabled(false);
                 btnTomahawkSubmarine.setEnabled(false);
                 btnTridentSubmarine.setEnabled(false);
-            }else if(position<40){
+            } else if (position < 40) {
                 btnShootSubmarine.setEnabled(true);
                 btnMassileSubmarine.setEnabled(false);
                 btnTomahawkSubmarine.setEnabled(false);
                 btnTridentSubmarine.setEnabled(false);
-            }else if(position<60){
+            } else if (position < 60) {
                 btnShootSubmarine.setEnabled(true);
                 btnMassileSubmarine.setEnabled(true);
                 btnTomahawkSubmarine.setEnabled(false);
                 btnTridentSubmarine.setEnabled(false);
-            }else if(position<80){
+            } else if (position < 80) {
                 btnShootSubmarine.setEnabled(true);
                 btnMassileSubmarine.setEnabled(true);
                 btnTomahawkSubmarine.setEnabled(true);
                 btnTridentSubmarine.setEnabled(false);
             }
-            
-            
+
         }
     }
 
     @Override
     public void sendPrivate(String name, String msg) {
-        if("Submarine"==name){
-            txtAreaSubmarine.append("Main Controller  :"+msg+"\n");
+        if ("Submarine" == name) {
+            txtAreaSubmarine.append("Main Controller  :" + msg + "\n");
         }
     }
 
-    
 }

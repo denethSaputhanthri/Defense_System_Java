@@ -3,15 +3,19 @@ package view;
 import controller.ControlRoom;
 import obs.Obsever;
 
-public class Tank extends javax.swing.JFrame implements Obsever{
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Tank.class.getName());
+public class Tank extends javax.swing.JFrame implements Obsever {
+
     private ControlRoom controlRoom;
+
     public Tank(ControlRoom controlRoom) {
         initComponents();
-        this.controlRoom=controlRoom;
+        this.controlRoom = controlRoom;
         setTitle("TANK");
         setVisible(true);
+        btnMissilleTank.setEnabled(false);
+        btnRedarTank.setEnabled(false);
+        btnRotateShootingTank.setEnabled(false);
+        btnShootTank.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -69,10 +73,11 @@ public class Tank extends javax.swing.JFrame implements Obsever{
         btnMissilleTank.setText("Missille Operation");
 
         txtAreaTank.setColumns(20);
+        txtAreaTank.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         txtAreaTank.setRows(5);
         jScrollPane1.setViewportView(txtAreaTank);
 
-        btnSearchTank.setText("Search");
+        btnSearchTank.setText("Send");
         btnSearchTank.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchTankActionPerformed(evt);
@@ -195,7 +200,7 @@ public class Tank extends javax.swing.JFrame implements Obsever{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchTankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchTankActionPerformed
-        String sendMsg="Tank  : "+txtMessageSendTank.getText();
+        String sendMsg = "Tank  : " + txtMessageSendTank.getText();
         MainController.setDefenceMsg(sendMsg);
     }//GEN-LAST:event_btnSearchTankActionPerformed
 
@@ -234,72 +239,73 @@ public class Tank extends javax.swing.JFrame implements Obsever{
 
     @Override
     public void areaClear(boolean AreaClear) {
-        if(AreaClear){
+        if (AreaClear) {
             lblAreaTank.setText("Area Clear...");
-        }else{
+        } else {
             lblAreaTank.setText("Area Is Not Clear...");
         }
     }
 
     @Override
     public void getMsgMain(String Msg) {
-        txtAreaTank.append("Main Controller  :"+Msg+"\n");
+        txtAreaTank.append("Main Controller  :" + Msg + "\n");
     }
 
     @Override
     public void setPosition(int position) {
-        if(checkBoxPositionTank.isSelected())
-        if(position>80){
+        if (checkBoxPositionTank.isSelected()) {
+            if (position > 80) {
                 btnMissilleTank.setEnabled(true);
                 btnRedarTank.setEnabled(true);
                 btnRotateShootingTank.setEnabled(true);
                 btnShootTank.setEnabled(true);
-            }else if(position>60){
-                btnMissilleTank.setEnabled(false);
+            } else if (position > 60) {
+                btnMissilleTank.setEnabled(true);
                 btnRedarTank.setEnabled(true);
-                btnRotateShootingTank.setEnabled(true);
+                btnRotateShootingTank.setEnabled(false);
                 btnShootTank.setEnabled(true);
-            }else if(position>40){
-                btnMissilleTank.setEnabled(false);
+            } else if (position > 40) {
+                btnMissilleTank.setEnabled(true);
                 btnRedarTank.setEnabled(false);
-                btnRotateShootingTank.setEnabled(true);
+                btnRotateShootingTank.setEnabled(false);
                 btnShootTank.setEnabled(true);
-            }else if(position>20){
+            } else if (position > 20) {
                 btnMissilleTank.setEnabled(false);
                 btnRedarTank.setEnabled(false);
                 btnRotateShootingTank.setEnabled(false);
                 btnShootTank.setEnabled(true);
             }
-            
-            if(position<20){
+
+            if (position < 20) {
                 btnMissilleTank.setEnabled(false);
                 btnRedarTank.setEnabled(false);
                 btnRotateShootingTank.setEnabled(false);
                 btnShootTank.setEnabled(false);
-            }else if(position<40){
+            } else if (position < 40) {
                 btnMissilleTank.setEnabled(false);
                 btnRedarTank.setEnabled(false);
                 btnRotateShootingTank.setEnabled(false);
                 btnShootTank.setEnabled(true);
-            }else if(position<60){
-                btnMissilleTank.setEnabled(false);
+            } else if (position < 60) {
+                btnMissilleTank.setEnabled(true);
                 btnRedarTank.setEnabled(false);
-                btnRotateShootingTank.setEnabled(true);
+                btnRotateShootingTank.setEnabled(false);
                 btnShootTank.setEnabled(true);
-            }else if(position<80){
-                btnMissilleTank.setEnabled(false);
+            } else if (position < 80) {
+                btnMissilleTank.setEnabled(true);
                 btnRedarTank.setEnabled(true);
-                btnRotateShootingTank.setEnabled(true);
+                btnRotateShootingTank.setEnabled(false);
                 btnShootTank.setEnabled(true);
             }
         }
 
-    @Override
-    public void sendPrivate(String name, String msg) {
-        if("Tank".equals(name)){
-            txtAreaTank.append("Main Controller  :"+msg+"\n");
-            
-        }
-    }
     }
 
+    @Override
+    public void sendPrivate(String name, String msg) {
+        if ("Tank".equals(name)) {
+            txtAreaTank.append("Main Controller  :" + msg + "\n");
+
+        }
+    }
+}
